@@ -14,9 +14,9 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Product> getByCategory(@PathVariable Integer id) {
-        return new ResponseEntity(productService.findAllByCategory(id), HttpStatus.OK);
+    @GetMapping()
+    public ResponseEntity<Product> getByCategory() {
+        return new ResponseEntity(productService.findAllByCategory(), HttpStatus.OK);
     }
     @PostMapping
     public ResponseEntity<Product> create(@RequestBody ProductRequest productRequest) {

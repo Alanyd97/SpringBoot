@@ -6,7 +6,7 @@ import com.cart.cart.product.domain.Product;
 import java.util.List;
 
 public interface ProductService {
-    List<Product> findAllByCategory(Integer id);
+    List<Product> findAllByCategory();
 
     Product create(ProductRequest productRequest);
 }

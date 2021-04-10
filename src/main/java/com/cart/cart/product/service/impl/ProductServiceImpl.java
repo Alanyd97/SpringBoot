@@ -19,8 +19,8 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public List<Product> findAllByCategory(Integer id) {
-        return new ArrayList<Product>();
+    public List<Product> findAllByCategory() {
+        return productRepository.findAll();
     }
 
     @Override
@@ -37,7 +37,7 @@ public class ProductServiceImpl implements ProductService {
         if(stock == null || stock < 0){ throw new BadRequestException("El stock del producto no debe ser vacio o menor a 0");}
 
         Product product = new Product();
-        product.setEstado(Estado.OK);
+        product.setEstado(Estado.ACTIVO);
         product.setPrice(price);
         product.setName(name);
         product.setStock(stock);
