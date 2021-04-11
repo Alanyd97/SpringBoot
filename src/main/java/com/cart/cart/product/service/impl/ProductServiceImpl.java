@@ -28,19 +28,31 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.save(productRequestToProduct(productRequest));
     }
 
+    @Override
+    public Product updateStock(Product product, Integer quantity) {
+        if (product.getStock() < quantity){throw new BadRequestException("La cantidad a comprar supera al stock actual del producto");}
+        product.setStock(product.getStock() - quantity);
+        return product;
+    }
+
     private Product productRequestToProduct(ProductRequest productRequest){
+        verifyItem(productRequest);
+        Product product = new Product();
+        product.setEstado(Estado.ACTIVO);
+        product.setPrice(productRequest.getPrice());
+        product.setName(productRequest.getName());
+        product.setStock(productRequest.getStock());
+        return product;
+    }
+
+    private void verifyItem(ProductRequest  productRequest){
         String name = productRequest.getName();
         Double price = productRequest.getPrice();
         Integer stock = productRequest.getStock();
         if(name == null || name == "" || name == " "){ throw new BadRequestException("El nombre del producto no debe ser vacio");}
         if( price == null  || price <= 0|| price.isNaN()){ throw new BadRequestException("El precio del producto no debe ser vacio, menor o igual a 0");}
         if(stock == null || stock < 0){ throw new BadRequestException("El stock del producto no debe ser vacio o menor a 0");}
-
-        Product product = new Product();
-        product.setEstado(Estado.ACTIVO);
-        product.setPrice(price);
-        product.setName(name);
-        product.setStock(stock);
-        return product;
     }
+
+
 }

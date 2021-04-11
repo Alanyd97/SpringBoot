@@ -9,4 +9,6 @@ public interface ProductService {
     List<Product> findAllByCategory();
 
     Product create(ProductRequest productRequest);
+
+    Product updateStock(Product product, Integer quantity);
 }

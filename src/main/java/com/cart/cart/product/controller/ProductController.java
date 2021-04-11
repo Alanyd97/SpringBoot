@@ -14,7 +14,7 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<Product> getByCategory() {
         return new ResponseEntity(productService.findAllByCategory(), HttpStatus.OK);
     }

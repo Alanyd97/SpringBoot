@@ -14,7 +14,6 @@ public class Cart {
     @GeneratedValue
     private Integer id;
 
-    @JoinColumn
     @OneToMany
     private List<CartItem> cartItemList;
 
