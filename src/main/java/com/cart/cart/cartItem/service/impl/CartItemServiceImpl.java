@@ -28,14 +28,6 @@ public class CartItemServiceImpl implements CartItemService {
     @Autowired
     ProductService productService;
 
-    @Override
-    public List<CartItem> createAll(List<CartItemRequest> cartItemRequestList) {
-        List<CartItem> cartItems = shoppingRequestListToShoppingList(cartItemRequestList);
-        List<CartItem> cartItemList = cartItemRepository.saveAll(cartItems);
-        return null;
-    }
-
-
 
     @Override
     public CartItem create(CartItemRequest cartItemRequest) {
@@ -104,11 +96,6 @@ public class CartItemServiceImpl implements CartItemService {
       if (cartItem.getQuantity() <= 0){ throw new BadRequestException("la cantidad no debe ser menor o igual a 0"); }
       if(cartItem.getId() <= 0){ throw new BadRequestException("El id del item no debe ser menor o igual a 0");}
       if(cartItem.getProduct()< 0){throw new BadRequestException("El id del producto no puede ser menor a 0");}
-    }
-
-    private List<CartItem> shoppingRequestListToShoppingList(List<CartItemRequest> cartItemRequestList) {
-
-        return null;
     }
 
     private CartItem setCartItem(CartItemRequest cartItemRequest, Product product) {
