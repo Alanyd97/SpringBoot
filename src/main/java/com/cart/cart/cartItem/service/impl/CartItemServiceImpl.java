@@ -1,6 +1,7 @@
 package com.cart.cart.cartItem.service.impl;
 
 import com.cart.cart.cart.controller.request.CartRequest;
+import com.cart.cart.cartItem.controller.request.CardItemToList;
 import com.cart.cart.cartItem.controller.request.CartItemRequest;
 import com.cart.cart.cartItem.domain.CartItem;
 import com.cart.cart.cartItem.repository.CartItemRepository;
@@ -39,7 +40,9 @@ public class CartItemServiceImpl implements CartItemService {
     @Override
     public CartItem create(CartItemRequest cartItemRequest) {
         verifyItemFromRequest(cartItemRequest);
-        CartItem cartItem = setCartItem(cartItemRequest);
+        Product product = productRepository.findById(cartItemRequest.getProduct()).get();
+        CartItem cartItem = setCartItem(cartItemRequest, product);
+        productService.updateStock(product,product.getStock()-cartItemRequest.getQuantity());
         return cartItemRepository.save(cartItem);
     }
 
@@ -62,9 +65,21 @@ public class CartItemServiceImpl implements CartItemService {
     }
 
     @Override
-    public List<CartItem> update(List<CartItem> cartItemList) {
-
-        return null;
+    public List<CartItem> update(List<CardItemToList> cartItemList) {
+        List<CartItem> cartItemListToResponse = new ArrayList<>();
+        for (CardItemToList cardItemToList: cartItemList
+             ) {
+            verifyItem(cardItemToList);
+            Optional<CartItem> optionalCartItem = cartItemRepository.findById(cardItemToList.getId());
+            if(optionalCartItem.isEmpty()){throw new NotFoundException("El item no se encuentra en la base");}
+            CartItem cartItem = optionalCartItem.get();
+            Product product = cartItem.getProduct();
+            CartItem currentItem = setCartItem(cardItemToList, product);
+            productService.updateStock(product,product.getStock() + (cartItem.getQuantity() - currentItem.getQuantity()));
+            currentItem.setId(cardItemToList.getId());
+            cartItemListToResponse.add(cartItemRepository.save(currentItem));
+        }
+        return cartItemListToResponse;
     }
 
 
@@ -85,24 +100,19 @@ public class CartItemServiceImpl implements CartItemService {
         }
     }
 
-    private List<CartItem> shoppingRequestListToShoppingList(List<CartItemRequest> cartItemRequestList) {
-        Double price = 0.00;
-        Integer quantity = 0;
-        List<CartItem> cartItemList = new ArrayList<>();
-        for (CartItemRequest item: cartItemRequestList) {
-            Optional<Product> optionalProduct = productRepository.findById(item.getProduct());
-            if (optionalProduct.isEmpty()){ throw new NotFoundException("entidad no encontrada"); }
-            verifyItemFromRequest(item);
-            CartItem cartItem = setCartItem(item);
-            cartItemList.add(cartItem);
-        }
-        return cartItemList;
+    private void verifyItem(CardItemToList cartItem){
+      if (cartItem.getQuantity() <= 0){ throw new BadRequestException("la cantidad no debe ser menor o igual a 0"); }
+      if(cartItem.getId() <= 0){ throw new BadRequestException("El id del item no debe ser menor o igual a 0");}
+      if(cartItem.getProduct()< 0){throw new BadRequestException("El id del producto no puede ser menor a 0");}
     }
 
-    private CartItem setCartItem(CartItemRequest cartItemRequest) {
-        Product product = productRepository.findById(cartItemRequest.getProduct()).get();
+    private List<CartItem> shoppingRequestListToShoppingList(List<CartItemRequest> cartItemRequestList) {
+
+        return null;
+    }
+
+    private CartItem setCartItem(CartItemRequest cartItemRequest, Product product) {
         Integer quantity = cartItemRequest.getQuantity();
-        productService.updateStock(product,product.getStock()-quantity);
         CartItem cartItem = new CartItem();
         cartItem.setProduct(product);
         cartItem.setPrice_sub(quantity * product.getPrice());

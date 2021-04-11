@@ -1,5 +1,6 @@
 package com.cart.cart.cartItem.service;
 
+import com.cart.cart.cartItem.controller.request.CardItemToList;
 import com.cart.cart.cartItem.controller.request.CartItemRequest;
 import com.cart.cart.cartItem.domain.CartItem;
 
@@ -15,6 +16,6 @@ public interface CartItemService {
 
     void removeItem(CartItem cartItem);
 
-    List<CartItem> update(List<CartItem> cartItem);
+    List<CartItem> update(List<CardItemToList> cartItem);
 
 }
