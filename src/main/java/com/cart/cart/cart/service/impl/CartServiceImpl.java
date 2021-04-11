@@ -9,6 +9,7 @@ import com.cart.cart.cartItem.domain.CartItem;
 import com.cart.cart.cartItem.repository.CartItemRepository;
 import com.cart.cart.cartItem.service.CartItemService;
 import com.cart.cart.common.Estado;
+import com.cart.cart.common.config.exception.BadRequestException;
 import com.cart.cart.common.config.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -82,6 +83,6 @@ public class CartServiceImpl implements CartService {
                 return cartItemList;
             }
         }
-        return null;
+        throw new BadRequestException("el item que desea borrar no pertenece al carrito actual");
     }
 }

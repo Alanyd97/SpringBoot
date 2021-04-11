@@ -15,4 +15,6 @@ public interface CartItemService {
 
     void removeItem(CartItem cartItem);
 
+    List<CartItem> update(List<CartItem> cartItem);
+
 }

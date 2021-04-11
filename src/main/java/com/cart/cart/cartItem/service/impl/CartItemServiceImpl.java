@@ -38,7 +38,7 @@ public class CartItemServiceImpl implements CartItemService {
 
     @Override
     public CartItem create(CartItemRequest cartItemRequest) {
-        verifyItem(cartItemRequest);
+        verifyItemFromRequest(cartItemRequest);
         CartItem cartItem = setCartItem(cartItemRequest);
         return cartItemRepository.save(cartItem);
     }
@@ -61,8 +61,14 @@ public class CartItemServiceImpl implements CartItemService {
         }
     }
 
+    @Override
+    public List<CartItem> update(List<CartItem> cartItemList) {
 
-    private void verifyItem(CartItemRequest cartItemRequest){
+        return null;
+    }
+
+
+    private void verifyItemFromRequest(CartItemRequest cartItemRequest){
         Integer productId = cartItemRequest.getProduct();
         if(productId == null || productId<=0){
             throw new BadRequestException("El producto no debe ser nulo o menor a cero");
@@ -86,7 +92,7 @@ public class CartItemServiceImpl implements CartItemService {
         for (CartItemRequest item: cartItemRequestList) {
             Optional<Product> optionalProduct = productRepository.findById(item.getProduct());
             if (optionalProduct.isEmpty()){ throw new NotFoundException("entidad no encontrada"); }
-            verifyItem(item);
+            verifyItemFromRequest(item);
             CartItem cartItem = setCartItem(item);
             cartItemList.add(cartItem);
         }
