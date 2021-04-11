@@ -1,6 +1,7 @@
 package com.cart.cart.product.domain;
 
 import com.cart.cart.common.Estado;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,44 +30,4 @@ public class Product {
     @Column
     private Estado estado;
 
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public Integer getStock() {
-        return stock;
-    }
-
-    public Estado getEstado() {
-        return estado;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
-    }
-
-    public void setEstado(Estado estado) {
-        this.estado = estado;
-    }
 }
