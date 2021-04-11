@@ -1,4 +1,4 @@
-package com.cart.cart.cart.cartItem.domain;
+package com.cart.cart.cartItem.domain;
 
 import com.cart.cart.product.domain.Product;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.cart.cart.cart.cartItem.controller.request;
+package com.cart.cart.cartItem.controller.request;
 
 import com.sun.istack.NotNull;
 import lombok.Getter;

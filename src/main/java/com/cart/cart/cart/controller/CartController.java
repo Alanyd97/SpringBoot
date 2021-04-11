@@ -1,6 +1,7 @@
 package com.cart.cart.cart.controller;
 
 import com.cart.cart.cart.controller.request.CartRequest;
+import com.cart.cart.cart.domain.Cart;
 import com.cart.cart.cart.service.CartService;
 import com.cart.cart.product.domain.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,10 @@ public class CartController {
     CartService cartService;
 
     @PostMapping
-    public ResponseEntity<Product> create(@RequestBody  CartRequest cartRequest) {
+    public ResponseEntity<Cart> create(@RequestBody  CartRequest cartRequest) {
         return new ResponseEntity(cartService.create(cartRequest), HttpStatus.OK);
     }
+
+
+
 }

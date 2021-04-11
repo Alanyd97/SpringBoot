@@ -1,6 +1,6 @@
 package com.cart.cart.cart.domain;
 
-import com.cart.cart.cart.cartItem.domain.CartItem;
+import com.cart.cart.cartItem.domain.CartItem;
 import com.cart.cart.common.Estado;
 import lombok.Data;
 

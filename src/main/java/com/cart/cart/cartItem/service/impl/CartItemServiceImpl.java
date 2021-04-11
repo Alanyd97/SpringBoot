@@ -1,9 +1,10 @@
-package com.cart.cart.cart.cartItem.service.impl;
+package com.cart.cart.cartItem.service.impl;
 
-import com.cart.cart.cart.cartItem.controller.request.CartItemRequest;
-import com.cart.cart.cart.cartItem.domain.CartItem;
-import com.cart.cart.cart.cartItem.repository.CartItemRepository;
-import com.cart.cart.cart.cartItem.service.CartItemService;
+import com.cart.cart.cart.controller.request.CartRequest;
+import com.cart.cart.cartItem.controller.request.CartItemRequest;
+import com.cart.cart.cartItem.domain.CartItem;
+import com.cart.cart.cartItem.repository.CartItemRepository;
+import com.cart.cart.cartItem.service.CartItemService;
 import com.cart.cart.common.config.exception.BadRequestException;
 import com.cart.cart.common.config.exception.NotFoundException;
 import com.cart.cart.product.domain.Product;
@@ -25,9 +26,11 @@ public class CartItemServiceImpl implements CartItemService {
 
     @Override
     public List<CartItem> createAll(List<CartItemRequest> cartItemRequestList) {
-        List<CartItem> cartItemList = shoppingRequestListToShoppingList(cartItemRequestList);
-        return cartItemRepository.saveAll(cartItemList);
+        List<CartItem> cartItems = shoppingRequestListToShoppingList(cartItemRequestList);
+        List<CartItem> cartItemList = cartItemRepository.saveAll(cartItems);
+        return null;
     }
+
 
     private List<CartItem> shoppingRequestListToShoppingList(List<CartItemRequest> cartItemRequestList) {
         Double price = 0.00;
@@ -67,4 +70,8 @@ public class CartItemServiceImpl implements CartItemService {
     }
 
 
+    @Override
+    public CartItem create(CartItemRequest cartItemRequest) {
+        return null;
+    }
 }
