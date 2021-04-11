@@ -83,6 +83,18 @@ public class CartItemServiceImpl implements CartItemService {
 
     @Override
     public CartItem getById(Integer id) {
-        return null;
+        Optional<CartItem> optionalCartItem = cartItemRepository.findById(id);
+        if(optionalCartItem.isEmpty()){throw new NotFoundException("El item que desea acceder no se encuentra en la base");}
+        return optionalCartItem.get();
+    }
+
+    @Override
+    public void removeItem(CartItem cartItem) {
+        CartItem item = getById(cartItem.getId());
+        try{
+            cartItemRepository.delete(item);
+        }catch (NotFoundException e){
+            throw new NotFoundException("error al tratar de borrar un item del carrito");
+        }
     }
 }

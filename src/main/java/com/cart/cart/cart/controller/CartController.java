@@ -18,6 +18,11 @@ public class CartController {
     @Autowired
     CartService cartService;
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Cart> getById(@PathVariable Integer id) {
+        return new ResponseEntity(cartService.getById(id), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<Cart> create(@RequestBody  CartRequest cartRequest) {
         return new ResponseEntity(cartService.create(cartRequest), HttpStatus.OK);
@@ -28,7 +33,7 @@ public class CartController {
     }
 
     @PostMapping("/delete-item/{id-cart}/{id-item}")
-    public  ResponseEntity<Cart> addItem(@PathVariable("id-carrito") Integer id_cart, @PathVariable("id-item") Integer id_item){
+    public  ResponseEntity<Cart> removeItem(@PathVariable("id-cart") Integer id_cart, @PathVariable("id-item") Integer id_item){
         return new ResponseEntity(cartService.removeItem(id_cart, id_item), HttpStatus.OK);
     }
 

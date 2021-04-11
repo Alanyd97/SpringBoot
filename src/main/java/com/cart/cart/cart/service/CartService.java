@@ -10,4 +10,6 @@ public interface CartService {
     Cart addItem(Integer id, CartItemRequest cartItemRequest);
 
     Cart removeItem(Integer id_cart, Integer id_item);
+
+    Cart getById(Integer id);
 }

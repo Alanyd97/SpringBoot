@@ -49,10 +49,20 @@ public class CartServiceImpl implements CartService {
     public Cart removeItem(Integer id_cart, Integer id_item) {
         Optional<Cart> optionalCart = cartRepository.findById(id_cart);
         if (optionalCart.isEmpty()){throw new NotFoundException("El carrito no se encuentra en la base");}
+        CartItem cartItem = cartItemService.getById(id_item);
         Cart cart = optionalCart.get();
         List<CartItem> cartItemList = cart.getCartItemList();
-        CartItem cartItem = cartItemService.
-        return null;
+        cartItemList = removeItemFromCart(cartItemList, cartItem);
+        cart.setCartItemList(cartItemList);
+        cartRepository.save(cart);
+        return cart;
+    }
+
+    @Override
+    public Cart getById(Integer id) {
+        Optional<Cart> optionalCart = cartRepository.findById(id);
+        if(optionalCart.isEmpty()){throw new NotFoundException("El carro que desea acceder no se encuentra en la base");}
+        return optionalCart.get();
     }
 
     private Cart setNewCart(){
@@ -61,5 +71,17 @@ public class CartServiceImpl implements CartService {
         cart.setCartItemList(new ArrayList<>());
         cart.setPrice_final(0.00);
         return cart;
+    }
+
+    private List<CartItem> removeItemFromCart(List<CartItem> cartItemList, CartItem cartItem){
+        for (CartItem item: cartItemList
+             ) {
+            if(item.equals(cartItem)){
+                cartItemList.remove(item);
+                cartItemService.removeItem(item);
+                return cartItemList;
+            }
+        }
+        return null;
     }
 }

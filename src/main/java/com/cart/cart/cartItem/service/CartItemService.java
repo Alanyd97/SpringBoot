@@ -13,4 +13,6 @@ public interface CartItemService {
 
     CartItem getById(Integer id);
 
+    void removeItem(CartItem cartItem);
+
 }
