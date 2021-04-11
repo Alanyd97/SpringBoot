@@ -22,9 +22,14 @@ public class CartController {
     public ResponseEntity<Cart> create(@RequestBody  CartRequest cartRequest) {
         return new ResponseEntity(cartService.create(cartRequest), HttpStatus.OK);
     }
-    @PostMapping("/addItem/{id}")
+    @PostMapping("/add-item/{id}")
     public  ResponseEntity<Cart> addItem(@RequestBody CartItemRequest cartItemRequest, @PathVariable Integer id){
         return new ResponseEntity(cartService.addItem(id, cartItemRequest), HttpStatus.OK);
+    }
+
+    @PostMapping("/delete-item/{id-cart}/{id-item}")
+    public  ResponseEntity<Cart> addItem(@PathVariable("id-carrito") Integer id_cart, @PathVariable("id-item") Integer id_item){
+        return new ResponseEntity(cartService.removeItem(id_cart, id_item), HttpStatus.OK);
     }
 
 

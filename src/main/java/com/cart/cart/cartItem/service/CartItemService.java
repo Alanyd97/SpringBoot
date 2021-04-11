@@ -11,4 +11,6 @@ public interface CartItemService {
 
     CartItem create(CartItemRequest cartItemRequest);
 
+    CartItem getById(Integer id);
+
 }

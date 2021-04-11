@@ -80,4 +80,9 @@ public class CartItemServiceImpl implements CartItemService {
         CartItem cartItem = setCartItem(cartItemRequest);
         return cartItemRepository.save(cartItem);
     }
+
+    @Override
+    public CartItem getById(Integer id) {
+        return null;
+    }
 }

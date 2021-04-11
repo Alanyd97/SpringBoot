@@ -45,6 +45,16 @@ public class CartServiceImpl implements CartService {
         return cartRepository.save(cart);
     }
 
+    @Override
+    public Cart removeItem(Integer id_cart, Integer id_item) {
+        Optional<Cart> optionalCart = cartRepository.findById(id_cart);
+        if (optionalCart.isEmpty()){throw new NotFoundException("El carrito no se encuentra en la base");}
+        Cart cart = optionalCart.get();
+        List<CartItem> cartItemList = cart.getCartItemList();
+        CartItem cartItem = cartItemService.
+        return null;
+    }
+
     private Cart setNewCart(){
         Cart cart = new Cart();
         cart.setEstado(Estado.ACTIVO);
