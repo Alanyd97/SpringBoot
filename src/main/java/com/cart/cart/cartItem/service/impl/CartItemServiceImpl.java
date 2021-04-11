@@ -1,6 +1,5 @@
 package com.cart.cart.cartItem.service.impl;
 
-import com.cart.cart.cart.controller.request.CartRequest;
 import com.cart.cart.cartItem.controller.request.CardItemToList;
 import com.cart.cart.cartItem.controller.request.CartItemRequest;
 import com.cart.cart.cartItem.domain.CartItem;
