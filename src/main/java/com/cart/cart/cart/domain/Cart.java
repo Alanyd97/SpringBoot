@@ -14,7 +14,7 @@ public class Cart {
     @GeneratedValue
     private Integer id;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<CartItem> cartItemList;
 
     @Column

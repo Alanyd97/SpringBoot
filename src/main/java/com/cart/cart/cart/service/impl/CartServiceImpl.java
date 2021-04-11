@@ -12,6 +12,7 @@ import com.cart.cart.common.Estado;
 import com.cart.cart.common.config.exception.BadRequestException;
 import com.cart.cart.common.config.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -64,6 +65,13 @@ public class CartServiceImpl implements CartService {
         Optional<Cart> optionalCart = cartRepository.findById(id);
         if(optionalCart.isEmpty()){throw new NotFoundException("El carro que desea acceder no se encuentra en la base");}
         return optionalCart.get();
+    }
+
+    @Override
+    public HttpStatus remove(Integer id) {
+        if(!cartRepository.existsById(id)){new NotFoundException("Carrito no encontrado");}
+        cartRepository.deleteById(id);
+        return HttpStatus.OK;
     }
 
     private Cart setNewCart(){
