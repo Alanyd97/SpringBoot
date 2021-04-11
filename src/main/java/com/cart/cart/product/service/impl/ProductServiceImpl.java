@@ -30,8 +30,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product updateStock(Product product, Integer quantity) {
-        if (product.getStock() < quantity){throw new BadRequestException("La cantidad a comprar supera al stock actual del producto");}
-        product.setStock(product.getStock() - quantity);
+        product.setStock(quantity);
         return product;
     }
 
