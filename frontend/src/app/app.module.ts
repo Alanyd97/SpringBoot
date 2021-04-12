@@ -7,7 +7,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { CartComponent } from './components/cart/cart.component';
 import {HttpClientModule} from '@angular/common/http';
 import { LoginComponent } from './pages/login/login.component';
-import { NavbarComponent } from './components/navbar/navbar/navbar.component'
+import { NavbarComponent } from './components/navbar/navbar/navbar.component';
+import { ProductListComponent } from './components/product-list/product-list.component'
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { NavbarComponent } from './components/navbar/navbar/navbar.component'
     HomeComponent,
     CartComponent,
     LoginComponent,
-    NavbarComponent
+    NavbarComponent,
+    ProductListComponent
   ],
   imports: [
     BrowserModule,
