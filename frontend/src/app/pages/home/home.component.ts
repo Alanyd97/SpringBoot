@@ -3,6 +3,7 @@ import { ProductService } from 'src/app/services/product/product-service.service
 
 import {Router} from "@angular/router"
 import { User } from 'src/app/models/cart/user/user.module';
+import { LoginService } from 'src/app/services/login/login.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -12,14 +13,9 @@ export class HomeComponent implements OnInit {
   public products = [];
   private user: User;
 
-  constructor(private _product: ProductService, private router: Router) {
-    this.user = JSON.parse(localStorage.getItem('usuario'));
-    if(this.user == null){
-      console.log("entre pero me fui");
-      this.router.navigate(["/login"]);
-      
-    }
-
+  constructor(private _product: ProductService, private _login: LoginService,  private router: Router) {
+    this._login.isLogged();
+   
   }
 
   ngOnInit(): void {
