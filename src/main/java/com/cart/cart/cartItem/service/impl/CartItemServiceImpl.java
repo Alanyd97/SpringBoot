@@ -1,6 +1,5 @@
 package com.cart.cart.cartItem.service.impl;
 
-import com.cart.cart.cart.controller.request.CartRequest;
 import com.cart.cart.cartItem.controller.request.CardItemToList;
 import com.cart.cart.cartItem.controller.request.CartItemRequest;
 import com.cart.cart.cartItem.domain.CartItem;
@@ -27,14 +26,6 @@ public class CartItemServiceImpl implements CartItemService {
     ProductRepository productRepository;
     @Autowired
     ProductService productService;
-
-    @Override
-    public List<CartItem> createAll(List<CartItemRequest> cartItemRequestList) {
-        List<CartItem> cartItems = shoppingRequestListToShoppingList(cartItemRequestList);
-        List<CartItem> cartItemList = cartItemRepository.saveAll(cartItems);
-        return null;
-    }
-
 
 
     @Override
@@ -104,11 +95,6 @@ public class CartItemServiceImpl implements CartItemService {
       if (cartItem.getQuantity() <= 0){ throw new BadRequestException("la cantidad no debe ser menor o igual a 0"); }
       if(cartItem.getId() <= 0){ throw new BadRequestException("El id del item no debe ser menor o igual a 0");}
       if(cartItem.getProduct()< 0){throw new BadRequestException("El id del producto no puede ser menor a 0");}
-    }
-
-    private List<CartItem> shoppingRequestListToShoppingList(List<CartItemRequest> cartItemRequestList) {
-
-        return null;
     }
 
     private CartItem setCartItem(CartItemRequest cartItemRequest, Product product) {

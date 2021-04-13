@@ -42,6 +42,4 @@ public class CartController {
         return new ResponseEntity(cartService.remove(id));
     }
 
-
-
 }
