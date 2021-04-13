@@ -1,6 +1,6 @@
 package com.cart.cart.product.service.impl;
 
-import com.cart.cart.common.Estado;
+import com.cart.cart.common.State;
 import com.cart.cart.common.config.exception.BadRequestException;
 import com.cart.cart.product.controller.request.ProductRequest;
 import com.cart.cart.product.domain.Product;
@@ -9,7 +9,6 @@ import com.cart.cart.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,7 +19,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> findAllByCategory() {
-        return productRepository.findAll();
+        return productRepository.getAllByState(State.ACTIVE);
     }
 
     @Override
@@ -37,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
     private Product productRequestToProduct(ProductRequest productRequest){
         verifyItem(productRequest);
         Product product = new Product();
-        product.setEstado(Estado.ACTIVO);
+        product.setState(State.ACTIVE);
         product.setPrice(productRequest.getPrice());
         product.setName(productRequest.getName());
         product.setStock(productRequest.getStock());

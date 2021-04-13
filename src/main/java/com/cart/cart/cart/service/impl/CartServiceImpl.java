@@ -6,9 +6,10 @@ import com.cart.cart.cart.repository.CartRepository;
 import com.cart.cart.cart.service.CartService;
 import com.cart.cart.cartItem.controller.request.CartItemRequest;
 import com.cart.cart.cartItem.domain.CartItem;
-import com.cart.cart.cartItem.repository.CartItemRepository;
 import com.cart.cart.cartItem.service.CartItemService;
-import com.cart.cart.common.Estado;
+import com.cart.cart.common.PromotionFactory.PromotionFactory;
+import com.cart.cart.common.State;
+import com.cart.cart.common.Type;
 import com.cart.cart.common.config.exception.BadRequestException;
 import com.cart.cart.common.config.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,17 +70,32 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public HttpStatus remove(Integer id) {
-        if(!cartRepository.existsById(id)){new NotFoundException("Carrito no encontrado");}
+        if(!cartRepository.existsById(id)){throw new NotFoundException("No se elimino ya que el carrito no se encuentra en la base");}
         cartRepository.deleteById(id);
         return HttpStatus.OK;
     }
 
     private Cart setNewCart(){
         Cart cart = new Cart();
-        cart.setEstado(Estado.ACTIVO);
+        cart.setState(State.ACTIVE);
         cart.setCartItemList(new ArrayList<>());
+        cart.setType(Type.SIMPLE);
         cart.setPrice_final(0.00);
         return cart;
+    }
+
+    private double getPrice(Cart cart){
+        double price = cart.getPrice_final();
+        List<CartItem> itemList = cart.getCartItemList();
+        double discount = 0;
+        if(itemList.size() >=5){
+            discount = (price/100)*5;
+            price =  price-discount;
+            cart.setPrice_final(price);
+        }
+        if(itemList.size() >= 10){
+            discount = new PromotionFactory().getPromotion(cart.getType()).getFinalPrice(cart);
+        }
     }
 
     private List<CartItem> removeItemFromCart(List<CartItem> cartItemList, CartItem cartItem){

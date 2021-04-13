@@ -1,8 +1,9 @@
 package com.cart.cart.cart.domain;
 
 import com.cart.cart.cartItem.domain.CartItem;
-import com.cart.cart.common.Estado;
-import lombok.Data;
+import com.cart.cart.common.State;
+import com.cart.cart.common.Type;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -21,7 +22,10 @@ public class Cart {
     private Double price_final;
 
     @Column
-    private Estado estado;
+    private State state;
+
+    @Column
+    private Type type;
 
 
 
