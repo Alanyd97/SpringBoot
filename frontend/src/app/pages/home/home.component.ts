@@ -13,16 +13,14 @@ export class HomeComponent implements OnInit {
   public products = [];
   private user: User;
 
-  constructor(private _product: ProductService, private _login: LoginService,  private router: Router) {
-    this._login.isLogged();
-   
+  constructor(private _login: LoginService,  private router: Router) {
+    if (!this._login.isLogged()){
+      this.router.navigate(["/login"]);
+    }
   }
 
   ngOnInit(): void {
   }
 
-  try(){
-    console.log(this.products);
-    
-  }
+
 }

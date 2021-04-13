@@ -9,40 +9,36 @@ import {Router} from "@angular/router"
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
- private user: User= 
- {
-   userName: "admin",
-   password:"admin"
- };
-
   errorMessage:string = "";
-  private password: string;
-  private userName: string;
+  private user : User = {
+    userName: "",
+    password: ""
+  }
   constructor(private _login:LoginService, private router: Router) { 
-    if(this._login.isLogged){
+    if(!this._login.isLogged){
       this.router.navigate(["/home"]);
     }
   }
 
   ngOnInit(): void {
-    this.password = "";
-    this.userName = "";
-  }
-  login(){
-    if(this.user.userName !== this.userName && this.user.password !== this.password){
-      this.errorMessage = "Contraseña y/o nombre de usuario incorrectos";
-      this.router.navigate(["/login"]);
-    }
-    localStorage.setItem("user", JSON.stringify(this.user));
-    this.router.navigate(["/home"]);
 
   }
+
+  login(){
+    this._login.login(this.user);
+
+    if(this._login.isLogged()){
+      this.router.navigate(["/home"]);
+    }
+    this.errorMessage = "Contraseña y/o nombre de usuario incorrectos";
+  }
+
   setUserName(event){
-   this.userName = event.target.value;
+   this.user.userName = event.target.value;
   }
 
   setPassword(event){
-    this.password =  event.target.value
+    this.user.password =  event.target.value
   }
 
 }

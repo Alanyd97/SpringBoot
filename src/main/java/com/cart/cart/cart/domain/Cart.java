@@ -1,8 +1,9 @@
 package com.cart.cart.cart.domain;
 
 import com.cart.cart.cartItem.domain.CartItem;
-import com.cart.cart.common.Estado;
-import lombok.Data;
+import com.cart.cart.common.State;
+import com.cart.cart.common.Type;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,14 +15,17 @@ public class Cart {
     @GeneratedValue
     private Integer id;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<CartItem> cartItemList;
 
     @Column
     private Double price_final;
 
     @Column
-    private Estado estado;
+    private State state;
+
+    @Column
+    private Type type;
 
 
 

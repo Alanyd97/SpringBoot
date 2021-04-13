@@ -1,5 +1,5 @@
 package com.cart.cart.common;
 
-public enum Estado {
-    ACTIVO, FINALIZADO, PENDIENTE, OK
+public enum State {
+    ACTIVE, FINISHED, PENDING, OK
 }

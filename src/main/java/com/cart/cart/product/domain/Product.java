@@ -1,7 +1,6 @@
 package com.cart.cart.product.domain;
 
-import com.cart.cart.common.Estado;
-import lombok.Data;
+import com.cart.cart.common.State;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,12 +21,12 @@ public class Product {
     private String name;
 
     @Column
-    private double price;
+    private Double price;
 
     @Column
     private Integer stock;
 
     @Column
-    private Estado estado;
+    private State state;
 
 }
